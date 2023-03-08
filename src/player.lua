@@ -25,10 +25,9 @@ function player.update(dt)
     destroyBullet(dt)
 
     for i, b in ipairs(bullets) do
-        if distanceBetween(b.x, b.y, enemy.collider:getX(), enemy.collider:getY()) < 50 then
+        if distanceBetween(b.x, b.y, enemy.x, enemy.y) < 50 then
             for i, b in ipairs(bullets) do
                 table.remove(bullets, i)
-                enemy.collider:destroy()
                 print(b.x, b.y)
             end
         end

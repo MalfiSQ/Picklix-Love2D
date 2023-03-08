@@ -17,10 +17,6 @@ function love.load()
     player.collider = world:newRectangleCollider(player.x, player.y, 70, 55)
     player.collider:setFixedRotation(true)
 
-    -- Enemy collider
-    enemy.collider = world:newRectangleCollider(enemy.x, enemy.y, 70, 55)
-    enemy.collider:setFixedRotation(true)
-
     -- Ground colliders
     grounds = {}
     if gameMap.layers["GroundRC"] then
