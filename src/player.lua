@@ -1,13 +1,13 @@
 player = {}
+wf = require 'libraries/windfield'
 anim8 = require 'libraries/anim8'
-camera = require("libraries/camera")
-cam = camera()
+camera = require 'libraries/camera'
 
 function player.load()
     love.graphics.setDefaultFilter("nearest", "nearest")
     player.x = 400
-    player.y = 200
-    player.speed = 500
+    player.y = 1500
+    player.speed = 700
     player.sprite = love.graphics.newImage('sprites/agentRight.png')
 
     facingRight = true
@@ -15,11 +15,24 @@ function player.load()
 
     bullets = {}
     bullets.sprite = love.graphics.newImage('sprites/bullet.png')
+
+    world = wf.newWorld(0, 0)
+    cam = camera()
 end
 
 function player.update(dt)
     playerMovement(dt)
     destroyBullet(dt)
+
+    for i, b in ipairs(bullets) do
+        if distanceBetween(b.x, b.y, enemy.collider:getX(), enemy.collider:getY()) < 50 then
+            for i, b in ipairs(bullets) do
+                table.remove(bullets, i)
+                enemy.collider:destroy()
+                print(b.x, b.y)
+            end
+        end
+    end
 end
 
 function player.draw()
@@ -49,6 +62,11 @@ function love.mousepressed(x, y, button)
 end
 
 -- Player functions
+
+function distanceBetween(x1, y1, x2, y2)
+    return math.sqrt((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
+end
+
 function playerMovement(dt)
     isMoving = false;
     local vX = 0
@@ -116,7 +134,6 @@ function destroyBullet(dt)
             table.remove(bullets, i)
             print(gx, gy, gw, gh)
             print(b.w, b.h)
-            -- Modified
         end
     end
 end
