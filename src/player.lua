@@ -9,7 +9,6 @@ function player.load()
     player.y = 200
     player.speed = 500
     player.sprite = love.graphics.newImage('sprites/agentRight.png')
-    --player.spriteLeft = love.graphics.newImage('sprites/agentLeft.png')
 
     facingRight = true
     facingLeft = false
